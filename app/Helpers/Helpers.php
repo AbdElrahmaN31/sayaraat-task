@@ -1,5 +1,14 @@
 <?php
 
+use App\Models\User;
+
+if (!function_exists('user')) {
+    function user(): User
+    {
+        return auth()->user();
+    }
+}
+
 if (!function_exists('lang')) {
     function lang(): string
     {
