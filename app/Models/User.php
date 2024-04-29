@@ -29,6 +29,7 @@ class User extends Authenticatable
         'manager_id',
         'department_id',
         'salary',
+        'image'
     ];
 
     /**
@@ -54,6 +55,15 @@ class User extends Authenticatable
     public function isManager(): bool
     {
         return $this->role === 'manager';
+    }
+
+    public function scopeMine($query)
+    {
+        $query->when(auth()->user()->isManager(), function ($q) {
+            return $q->where('users.manager_id', auth()->id());
+        })->when(auth()->user()->isEmployee(), function ($q) {
+            return $q->where('users.id', auth()->id());
+        });
     }
 
     public function manager(): BelongsTo
@@ -92,18 +102,24 @@ class User extends Authenticatable
         return   ($this->first_name . ' ' . $this->last_name);
     }
 
+
+    public function getNameAttribute(): string
+    {
+        return   ($this->first_name . ' ' . $this->last_name);
+    }
+
     public function scopeEmployees($query)
     {
-        return $query->where('role', 'employee');
+        return $query->where('users.role', 'employee');
     }
 
     public function scopeManagers($query)
     {
-        return $query->where('role', 'manager');
+        return $query->where('users.role', 'manager');
     }
 
     public function scopeAdmins($query)
     {
-        return $query->where('role', 'admin');
+        return $query->where('users.role', 'admin');
     }
 }

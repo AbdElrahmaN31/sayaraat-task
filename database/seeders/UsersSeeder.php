@@ -15,7 +15,7 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $this->createUser('admin', 'admin@gmail.com', '201010101010', 'admin');
-        $manager = $this->createUser('manager', 'manger@gmail.com', '201010101011', 'manager', 1);
+        $manager = $this->createUser('manager', 'manager@gmail.com', '201010101011', 'manager', 1);
         $this->createUser('user', 'user@gmail.com', '201010101012', 'employee', 1, $manager->id);
     }
 

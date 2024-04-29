@@ -1,47 +1,58 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layout.guest')
+@section('content')
+    <div class="form-container outer">
+        <div class="form-form">
+            <div class="form-form-wrap">
+                <div class="text-center my-5">
+                    <img src="{{asset('images/logo.png')}}" class="flag-width" alt="flag"
+                         style="width: 150px;margin-top: 33px"/>
+                </div>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+                <div class="form-container">
+                    <div class="form-content">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        <h1 class="">{{__('dash.login')}}</h1>
+                        <p class="">{{__('dash.login_to_your_account')}}</p>
+
+                        <form class="text-left" method="post" action="{{route('login')}}">
+                            @csrf
+                            <div class="form">
+                                <div id="username-field" class="field-wrapper input">
+                                    <label for="user_email">{{__('dash.email_phone')}}</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-user">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <input id="email_phone" name="email_phone" type="text" class="form-control">
+                                </div>
+
+                                <div id="password-field" class="field-wrapper input mb-2">
+                                    <input id="password" name="password" type="password" class="form-control"
+                                           placeholder="Password">
+                                </div>
+                                <div class="field-wrapper text-center keep-logged-in">
+                                    <div class="n-chk new-checkbox checkbox-outline-primary text-left py-2">
+                                        <label class="new-control new-checkbox checkbox-outline-primary">
+                                            <input type="checkbox" name="remember_me" class="new-control-input">
+                                            <span class="new-control-indicator"></span>{{__('dash.remember_me')}}
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="d-sm-flex justify-content-between">
+                                    <div class="field-wrapper">
+                                        <button type="submit" class="btn btn-primary"
+                                                value="">{{__('dash.login')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-{{--            @if (Route::has('password.request'))--}}
-{{--                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">--}}
-{{--                    {{ __('Forgot your password?') }}--}}
-{{--                </a>--}}
-{{--            @endif--}}
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>
+@endsection

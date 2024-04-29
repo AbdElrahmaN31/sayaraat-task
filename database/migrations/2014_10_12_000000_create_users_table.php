@@ -23,7 +23,8 @@ return new class extends Migration
             $table->enum('role', ['admin', 'manager', 'employee'])->default('employee');
             $table->foreignId('manager_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->constrained('departments')->restrictOnDelete();
-            $table->float('salary')->nullable();
+            $table->double('salary')->nullable();
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

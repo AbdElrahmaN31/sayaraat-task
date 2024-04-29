@@ -39,12 +39,13 @@ class Task extends Model
         parent::boot();
 
         static::addGlobalScope('mine', function ($builder) {
-            $user = auth('web')->user();
-            $builder->when($user->isEmployee(), function ($query) use ($user) {
-                $query->where('employee_id', $user->id);
-            })->when($user->isManager(), function ($query) use ($user) {
-                $query->where('manager_id', $user->id);
+            $user = auth()->user();
+            $builder->when($user?->isEmployee(), function ($query) use ($user) {
+                return $query->where('tasks.employee_id', $user->id);
+            })->when($user?->isManager(), function ($query) use ($user) {
+                return $query->where('tasks.manager_id', $user->id);
             });
+            return $builder;
         });
     }
 

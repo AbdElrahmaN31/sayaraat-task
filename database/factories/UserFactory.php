@@ -24,8 +24,8 @@ class UserFactory extends Factory
             'first_name' => fake()->firstName,
             'last_name'  => fake()->lastName,
             'email'      => fake()->unique()->safeEmail(),
-            'phone'      => fake()->unique()->phoneNumber(),
-            'password'   => '$2y$10$s0tN2MtiQ/QGQ.huWDOM1e31.xwYlnA/SKcVZ4v1TDMaDKz9.sBbO', // Aa@123456
+            'phone'      => "2010" . fake()->numberBetween(1000000000, 9999999999),
+            'password'   => 'Aa@123456',
         ];
     }
 
